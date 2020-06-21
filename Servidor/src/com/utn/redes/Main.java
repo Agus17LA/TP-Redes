@@ -24,7 +24,7 @@ public class Main {
                 // increase the session number by 1
                 idSession++;
                 //Create a thread to handle the communication with the client
-                new Cliente(clienteSocket, idSession);
+                new ClienteManager(clienteSocket, idSession);
             }
         } catch (IOException e) {
             e.printStackTrace();

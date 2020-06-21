@@ -4,13 +4,13 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Cliente implements Runnable {
+public class ClienteManager implements Runnable {
 
     Socket clienteSocket;
     Integer idSession;
 
 
-    public Cliente(Socket clienteSocket, Integer idSession) {
+    public ClienteManager(Socket clienteSocket, Integer idSession) {
         this.clienteSocket = clienteSocket;
         this.idSession = idSession;
         Thread thread = new Thread(this);
@@ -23,23 +23,25 @@ public class Cliente implements Runnable {
         Scanner scan = new Scanner(System.in);
         String mensaje;
         try {
-            //Initializing the input and output
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(clienteSocket.getOutputStream()));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
 
-            //Send a message to the client indicating that the connection was established
+            //Se indica desde el servidor que la conexión se ha establecido correctamente
             bufferedWriter.write("Se ha establecido conexión.");
             bufferedWriter.newLine();
             bufferedWriter.flush();
-            //Printing the message from the server indicating that the connection was established
+            //Se envía un mensaje al servidor indicando que la conexión
+            // se ha establecido correctamente
             mensaje = bufferedReader.readLine();
             this.printMensaje(mensaje);
-            //True if the socket connected and is not closed
             while ((clienteSocket.isConnected()) && (!clienteSocket.isClosed())) {
-                //Read the message from the user
+                //Devuelve verdadero si es que el socket está conectado
+                // y no fue cerrado
+                //Se lee el mensaje recibido del cliente
                 mensaje = bufferedReader.readLine();
 
-                //If the message sent by the user is x the server disconnects if not print the message and input a response
+                //Cuando se ingresa X en el chat desde el lado del cliente
+                // la conexión automáticamente se finaliza rompiendo el while
                 if ("X".equalsIgnoreCase(mensaje)) {
                     bufferedWriter.write("La conexión ha sido finalizada por el usuario.");
                     bufferedWriter.newLine();
@@ -51,7 +53,9 @@ public class Cliente implements Runnable {
                     printMensaje(mensaje);
                     System.out.println("Ingrese una respuesta: ");
                     mensaje = scan.nextLine();
-                    //If the response is not x the response is send if not send a notification that the server finish the connection and disconnect the socket
+                    //Si la respuesta por parte del servidor no es X se envía un mensaje escrito
+                    // desde el servidor, sino se envía un mensaje indicando que la conexión
+                    // se ha finalizado
                     if (!mensaje.equalsIgnoreCase("X")) {
                         bufferedWriter.write(mensaje);
                         bufferedWriter.newLine();

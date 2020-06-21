@@ -17,26 +17,28 @@ public class Cliente {
         Scanner scan = new Scanner(System.in);
         String mensaje;
         try {
-            //Initializing the input and output
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 
             System.out.println("El cliente se inició de manera exitosa.");
-            //Printing the message from the server indicating that the connection was established
+            //Se indica desde el servidor que la conexión se ha establecido correctamente
             mensaje = bufferedReader.readLine();
             this.printMensaje(mensaje);
-            //Send a message to the server indicating that the connection was established
+            //Se envía un mensaje al servidor indicando que la conexión
+            // se ha establecido correctamente
             bufferedWriter.write("Conexión establecida.");
             bufferedWriter.newLine();
             bufferedWriter.flush();
-            //True if the socket connected and is not closed
             while((socket.isConnected()) && (!socket.isClosed())){
+                //Devuelve verdadero si es que el socket está conectado
+                // y no fue cerrado
                 System.out.println("Escribe un mensaje: ");
                 mensaje = scan.nextLine();
                 bufferedWriter.write(mensaje);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
-                //If the message is not x print the message from the server, and if it's x break the while
+                //Cuando se ingresa X en el chat la conexión automáticamente se finaliza
+                // rompiendo el while
                 if(!mensaje.equalsIgnoreCase("X")){
                     mensaje = bufferedReader.readLine();
                     if(!mensaje.equalsIgnoreCase("Conexión finalizada por el servidor.")){
