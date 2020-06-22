@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: C:\Users\Bianca\Documents\GitHub\TP-Redes\Cliente\out\artifa
+ cts\Client_jar
+
