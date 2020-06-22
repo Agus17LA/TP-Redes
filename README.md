@@ -1,3 +1,14 @@
+Instrucciones
+
+1) Se deberá descargar el ZIP del repositorio.
+2) Descomprimir el ZIP.
+3) Abrir en un IDE por separado la carpeta de Servidor y la de Cliente.
+4) Ejecutar primero el main del Servidor y luego el del Cliente.
+5) Seguir las instrucciones indicadas en la consola (se pedirán datos al cliente para establecer conexión con el servidor).
+6) Para finalizar la conexión ingresar X como mensaje en cualquiera de las partes involucradas en la conexión.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
 Trabajo Final Redes I - Preguntas
 
 1) ¿Qué es un puerto?
